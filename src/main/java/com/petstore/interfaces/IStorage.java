@@ -1,13 +1,13 @@
-package com.interfaces;
+package com.petstore.interfaces;
 
 import java.util.List;
 
 public interface IStorage<T extends IStorable> {
 
 	public T create(T instance);
-	public T read(int id);
+	public T read(Long id);
 	public T update(T instance);
-	public boolean delete(int id);
+	public boolean delete(Long id);
 	public List<T> readAll();
 
 }

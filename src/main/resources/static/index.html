@@ -24,7 +24,7 @@
 	<div class="container-fluid" id="main" ng-app="petStoreApp"
 		ng-controller="petStoreController">
 		<toast></toast>
-		<div class="col-md-8 col-md-offset-2">
+		<div class="col-md-8 col-md-offset-2" ng-init="load()">
 
 			<div class="row">
 				<fieldset>
@@ -87,7 +87,7 @@
 									</td>
 								</tr>
 
-								<tr>
+								<!-- <tr>
 									<td>
 										<div class="col-md-4 txtright">Pictures:</div>
 										<div class="col-md-8">
@@ -97,7 +97,7 @@
 											</div>
 										</div>
 									</td>
-								</tr>
+								</tr> -->
 
 								<tr>
 									<td>
@@ -109,7 +109,7 @@
 									</td>
 								</tr>
 
-								<tr>
+								<!-- <tr>
 									<td>
 										<div class="col-md-4 txtright">Tags:</div>
 										<div class="col-md-8">
@@ -117,7 +117,7 @@
 												value="{{ formatTagsToString(selectedPet.tags) }}" disabled>
 										</div>
 									</td>
-								</tr>
+								</tr> -->
 							</tbody>
 						</table>
 					</div>
@@ -159,14 +159,14 @@
 											<td>
 												<div class="col-md-4 txtright">Category</div>
 												<div class="col-md-8">
-													<select name="addPetCategory" ng-model="petToAdd.category"
+													<select name="addPetCategory" ng-init="loadCategory()" ng-model="petToAdd.category"
 														ng-options="option.name for option in categoryOptions track by option.id">
 													</select>
 												</div>
 											</td>
 										</tr>
 
-										<tr>
+										<!-- <tr>
 											<td>
 												<div class="col-md-4 txtright">Tags</div>
 												<div class="col-md-8">
@@ -176,9 +176,9 @@
 													</select>
 												</div>
 											</td>
-										</tr>
+										</tr> -->
 
-										<tr>
+										<!-- <tr>
 											<td>
 												<div class="col-md-4 txtright">Photo URLs</div>
 												<div class="col-md-8">
@@ -186,7 +186,7 @@
 														name="addPetPhotoUrls" required>
 												</div>
 											</td>
-										</tr>
+										</tr> -->
 
 										<tr>
 											<td>
