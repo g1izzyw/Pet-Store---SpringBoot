@@ -2,6 +2,7 @@ package com.petstore.controller;
 
 import javax.sql.DataSource;
 
+import org.springframework.beans.TypeMismatchException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -14,10 +15,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.petstore.entity.Pet;
+import com.petstore.exceptions.PetNotFoundException;
 import com.petstore.interfaces.IStorage;
 
 @RestController
@@ -33,24 +34,26 @@ public class PetController {
 
 	// @RequestMapping(value = "/{petId}", method = RequestMethod.GET)
 	@GetMapping(value = "/{petId}")
-	public @ResponseBody ResponseEntity<Pet> getPetById(@PathVariable("petId") Long petId) {
+	public @ResponseBody ResponseEntity<Pet> getPetById(@PathVariable("petId") Long petId) throws PetNotFoundException, TypeMismatchException {
 		// Pet petWithId = petRepository.findOne(petId);
 		Pet petWithId = petRepository.read(petId);
 		if (petWithId != null) {
 			return new ResponseEntity<Pet>(petWithId, HttpStatus.OK);
 		} else {
-			return new ResponseEntity<Pet>(HttpStatus.NOT_FOUND);
+			throw new PetNotFoundException(petId);
+//			return new ResponseEntity<Pet>(HttpStatus.NOT_FOUND);
 		}
 	}
 
 	// @RequestMapping(value = "/{petId}", method = RequestMethod.DELETE)
 	@DeleteMapping(value = "/{petId}")
-	public ResponseEntity<Void> deletePetById(@PathVariable("petId") Long petId, UriComponentsBuilder ucBuilder) {
+	public ResponseEntity<Void> deletePetById(@PathVariable("petId") Long petId) throws PetNotFoundException, TypeMismatchException {
 		// boolean wasPetDeleted = petRepository.delete(petId);
 		if (petRepository.delete(petId)) {
 			return new ResponseEntity<Void>(HttpStatus.OK);
 		} else {
-			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+			throw new PetNotFoundException(petId);
+//			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 		}
 	}
 
