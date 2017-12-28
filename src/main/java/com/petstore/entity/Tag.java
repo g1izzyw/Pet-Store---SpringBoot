@@ -1,12 +1,14 @@
 package com.petstore.entity;
 
 import java.io.Serializable;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -15,12 +17,12 @@ import com.petstore.interfaces.IStorable;
 
 @Entity
 @Table(name = "Tag")
-@NamedQueries({
-	@NamedQuery(name = "Tag.readAll", query = "SELECT t FROM Tag t")
+@NamedQueries({ 
+	@NamedQuery(name = "Tag.readAll", query = "SELECT t FROM Tag t") 
 })
 public class Tag implements IStorable, Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -8929548432865814932L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,6 +31,9 @@ public class Tag implements IStorable, Serializable {
 
 	@Column(name = "name", nullable = false)
 	private String name;
+
+	@ManyToMany(mappedBy = "tags")
+	private Set<Pet> pets;
 
 	@Override
 	public int hashCode() {
@@ -77,4 +82,11 @@ public class Tag implements IStorable, Serializable {
 		this.name = name;
 	}
 
+	public Set<Pet> getPets() {
+		return pets;
+	}
+
+	public void setPets(Set<Pet> pets) {
+		this.pets = pets;
+	}
 }

@@ -8,7 +8,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
@@ -18,12 +17,12 @@ import com.petstore.interfaces.IStorable;
 
 @Entity
 @Table(name = "Category")
-@NamedQueries({
-	@NamedQuery(name = "Category.readAll", query = "SELECT c FROM Category c")
+@NamedQueries({ 
+	@NamedQuery(name = "Category.readAll", query = "SELECT c FROM Category c") 
 })
 public class Category implements IStorable, Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -1157170131457410062L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,8 +31,8 @@ public class Category implements IStorable, Serializable {
 
 	@Column(name = "name", nullable = false)
 	private String name;
-	
-	@OneToOne(fetch=FetchType.LAZY, mappedBy="category")
+
+	@OneToOne(fetch = FetchType.LAZY, mappedBy = "category")
 	private Pet pet;
 
 	@Override

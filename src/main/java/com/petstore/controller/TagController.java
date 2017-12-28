@@ -23,26 +23,24 @@ public class TagController {
 
 	@Autowired
 	DataSource dataSource;
-	
+
 	@Autowired
 	IStorage<Tag> tagRepository;
-	
+
 	@GetMapping("")
 	public @ResponseBody ResponseEntity<Set<Tag>> getAllTags() {
-		
-		try {
-			Set<Tag> allTagsSet = new HashSet<Tag>();
-			List<Tag> allTagsList = tagRepository.readAll();
-			
+		Set<Tag> allTagsSet = new HashSet<Tag>();
+		List<Tag> allTagsList = tagRepository.readAll();
+
+		if (allTagsList != null) {
 			for (Tag t : allTagsList) {
 				allTagsSet.add(t);
 			}
-			
 			return new ResponseEntity<Set<Tag>>(allTagsSet, HttpStatus.OK);
-		} catch (IllegalStateException e) {
+		} else {
 			return new ResponseEntity<Set<Tag>>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
-//	@RequestMapping(value = "", method = Req)
-	
+	// @RequestMapping(value = "", method = Req)
+
 }

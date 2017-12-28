@@ -7,7 +7,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.petstore.entity.Tag;
@@ -44,13 +43,15 @@ public class TagDAOService implements IStorage<Tag> {
 	}
 
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public List<Tag> readAll() {
 		try {
 			Query query = entityManager.createNamedQuery("Tag.readAll");
 			List<Tag> allTags = (List<Tag>) query.getResultList();
 			return allTags;
 		} catch (IllegalStateException e) {
+			return null;
+		} catch (Exception e) {
 			return null;
 		}
 	}

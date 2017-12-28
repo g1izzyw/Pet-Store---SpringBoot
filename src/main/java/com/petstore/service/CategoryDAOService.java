@@ -44,13 +44,15 @@ public class CategoryDAOService implements IStorage<Category> {
 	}
 
 	@Override
-	@Transactional
+	@Transactional(readOnly = true)
 	public List<Category> readAll() {
 		try {
 			Query query = entityManager.createNamedQuery("Category.readAll");
 			List<Category> allCategories = (List<Category>) query.getResultList();
 			return allCategories;
 		} catch (IllegalStateException e) {
+			return null;
+		} catch (Exception e) {
 			return null;
 		}
 	}

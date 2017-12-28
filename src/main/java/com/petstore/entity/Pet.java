@@ -1,7 +1,9 @@
 package com.petstore.entity;
 
 import java.io.Serializable;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -11,9 +13,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.MapsId;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -27,17 +31,16 @@ import com.petstore.interfaces.IStorable;
 })
 public class Pet implements IStorable, Serializable {
 
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1438831856541179960L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 //	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	// @SequenceGenerator(name = "PetSequence", sequenceName = "PET_ID_SEQ",
-	// allocationSize = 1, initialValue = 1)
+	// @SequenceGenerator(name = "PetSequence", sequenceName = "PET_ID_SEQ", allocationSize = 1, initialValue = 1)
 	@Column(name = "pet_id", updatable = false, nullable = false)
 	private Long id;
 
-	@Column(name = "name")
+	@Column(name = "name", nullable = false)
 	private String name;
 
 	@OneToOne(fetch=FetchType.LAZY)
@@ -45,9 +48,16 @@ public class Pet implements IStorable, Serializable {
 //	@MapsId
 	private Category category;
 	
-	// private List<String> photoUrls;
+	@OneToMany(cascade={CascadeType.ALL},mappedBy="pet")
+	private Set<PetPicture> pictures;
 
-	// private List<Tag> tags;
+	@ManyToMany
+	@JoinTable(
+		name="Pet_Tag",
+		joinColumns=@JoinColumn(name="pet_id", referencedColumnName="pet_id"),
+		inverseJoinColumns=@JoinColumn(name="tag_id", referencedColumnName="tag_id")
+	)
+	private Set<Tag> tags;
 
 	@Enumerated(EnumType.STRING)
 	@Column(name = "status")
@@ -110,6 +120,30 @@ public class Pet implements IStorable, Serializable {
 
 	public void setCategory(Category category) {
 		this.category = category;
+	}
+	
+	public Set<Tag> getTags() {
+		return tags;
+	}
+
+	public void setTags(Set<Tag> tags) {
+		this.tags = tags;
+	}
+
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+	
+	public Set<PetPicture> getPictures() {
+		return pictures;
+	}
+
+	public void setPictures(Set<PetPicture> pictures) {
+		this.pictures = pictures;
 	}
 
 }
