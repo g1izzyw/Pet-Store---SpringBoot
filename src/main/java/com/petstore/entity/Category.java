@@ -13,6 +13,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.petstore.interfaces.IStorable;
 
 @Entity
@@ -33,6 +34,7 @@ public class Category implements IStorable, Serializable {
 	private String name;
 
 	@OneToOne(fetch = FetchType.LAZY, mappedBy = "category")
+	@JsonBackReference("pet-category")
 	private Pet pet;
 
 	@Override
@@ -80,6 +82,14 @@ public class Category implements IStorable, Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public Pet getPet() {
+		return pet;
+	}
+
+	public void setPet(Pet pet) {
+		this.pet = pet;
 	}
 
 }

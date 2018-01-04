@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.petstore.exceptions.FailedToReadAllException;
 import com.petstore.exceptions.PetNotFoundException;
 
 @ControllerAdvice
@@ -22,6 +23,11 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(TypeMismatchException.class)
 	public ResponseEntity<VndErrors> notFoundException(final TypeMismatchException e) {
 		return new ResponseEntity<VndErrors>(new VndErrors(e.getErrorCode(), e.getMessage()), HttpStatus.BAD_REQUEST);
+	}
+	
+	@ExceptionHandler(FailedToReadAllException.class)
+	public ResponseEntity<VndErrors> notFoundException(final FailedToReadAllException e) {
+		return new ResponseEntity<VndErrors>(new VndErrors(e.getType(), e.getMessage()), HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 	
 }

@@ -7,7 +7,6 @@ import java.util.Set;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.petstore.entity.Category;
+import com.petstore.exceptions.FailedToReadAllCategoriesException;
+import com.petstore.exceptions.FailedToReadAllException;
 import com.petstore.interfaces.IStorage;
 
 @RestController
@@ -30,7 +31,7 @@ public class CategoryController {
 	IStorage<Category> categoryRepository;
 
 	@GetMapping("")
-	public @ResponseBody ResponseEntity<Set<Category>> getAllTags() {
+	public @ResponseBody ResponseEntity<Set<Category>> getAllTags() throws FailedToReadAllException {
 		Set<Category> allCategoriesSet = new HashSet<Category>();
 		List<Category> allCategoriesList = categoryRepository.readAll();
 
@@ -40,7 +41,7 @@ public class CategoryController {
 			}
 			return new ResponseEntity<Set<Category>>(allCategoriesSet, HttpStatus.OK);
 		} else {
-			return new ResponseEntity<Set<Category>>(HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new FailedToReadAllCategoriesException();
 		}
 	}
 }

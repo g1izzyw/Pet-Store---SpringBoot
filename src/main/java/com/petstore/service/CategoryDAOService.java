@@ -6,6 +6,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +18,8 @@ import com.petstore.interfaces.IStorage;
 @Repository
 public class CategoryDAOService implements IStorage<Category> {
 
+	private final Logger log = LoggerFactory.getLogger(this.getClass());
+	
 	@PersistenceContext
 	private EntityManager entityManager;
 	
@@ -49,12 +53,15 @@ public class CategoryDAOService implements IStorage<Category> {
 		try {
 			Query query = entityManager.createNamedQuery("Category.readAll");
 			List<Category> allCategories = (List<Category>) query.getResultList();
+			log.trace(String.format("Reading all categories, %d categories found", allCategories.size()));
 			return allCategories;
 		} catch (IllegalStateException e) {
-			return null;
+			e.printStackTrace();
 		} catch (Exception e) {
-			return null;
+			e.printStackTrace();
 		}
+		log.trace("Failed to read all categories");
+		return null;
 	}
 
 }

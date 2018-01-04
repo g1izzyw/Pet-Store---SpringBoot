@@ -21,6 +21,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.petstore.enums.Status;
 import com.petstore.interfaces.IStorable;
 
@@ -35,8 +36,6 @@ public class Pet implements IStorable, Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-//	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	// @SequenceGenerator(name = "PetSequence", sequenceName = "PET_ID_SEQ", allocationSize = 1, initialValue = 1)
 	@Column(name = "pet_id", updatable = false, nullable = false)
 	private Long id;
 
@@ -44,11 +43,12 @@ public class Pet implements IStorable, Serializable {
 	private String name;
 
 	@OneToOne(fetch=FetchType.LAZY)
-	@JoinColumn(name="category_id") // dont need to use this is we are using mapsid
-//	@MapsId
+	@JoinColumn(name="category_id")
+	@JsonManagedReference("pet-category")
 	private Category category;
 	
 	@OneToMany(cascade={CascadeType.ALL},mappedBy="pet")
+	@JsonManagedReference("pet-picture")
 	private Set<PetPicture> pictures;
 
 	@ManyToMany

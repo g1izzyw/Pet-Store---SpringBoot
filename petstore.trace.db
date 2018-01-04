@@ -1,0 +1,24 @@
+2017-12-29 11:19:08 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLException: Table "TAG" not found; SQL statement:
+INSERT INTO TAG (NAME) VALUES ('Big') [42102-196]
+2017-12-29 11:19:08 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLException: Table "TAG" not found; SQL statement:
+INSERT INTO TAG (NAME) VALUES ('Small') [42102-196]
+2017-12-29 11:19:08 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLException: Table "TAG" not found; SQL statement:
+INSERT INTO TAG (NAME) VALUES ('Gilss') [42102-196]
+2017-12-29 11:19:08 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLException: Table "TAG" not found; SQL statement:
+INSERT INTO TAG (NAME) VALUES ('Active') [42102-196]
+2017-12-29 11:19:08 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLException: Table "CATEGORY" not found; SQL statement:
+INSERT INTO CATEGORY (NAME) VALUES ('Dog') [42102-196]
+2017-12-29 11:19:08 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLException: Table "CATEGORY" not found; SQL statement:
+INSERT INTO CATEGORY (NAME) VALUES ('Cat') [42102-196]
+2017-12-29 11:19:08 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLException: Table "CATEGORY" not found; SQL statement:
+INSERT INTO CATEGORY (NAME) VALUES ('Bird') [42102-196]
+2017-12-29 11:19:08 jdbc[12]: exception
+org.h2.jdbc.JdbcSQLException: Table "CATEGORY" not found; SQL statement:
+INSERT INTO CATEGORY (NAME) VALUES ('Fish') [42102-196]

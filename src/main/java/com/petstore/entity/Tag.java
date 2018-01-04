@@ -13,6 +13,7 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.petstore.interfaces.IStorable;
 
 @Entity
@@ -33,6 +34,7 @@ public class Tag implements IStorable, Serializable {
 	private String name;
 
 	@ManyToMany(mappedBy = "tags")
+	@JsonIgnoreProperties(value = "tags")
 	private Set<Pet> pets;
 
 	@Override

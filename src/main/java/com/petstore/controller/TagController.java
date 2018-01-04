@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.petstore.entity.Tag;
+import com.petstore.exceptions.FailedToReadAllException;
+import com.petstore.exceptions.FailedToReadAllTagsException;
 import com.petstore.interfaces.IStorage;
 
 @RestController
@@ -28,7 +30,7 @@ public class TagController {
 	IStorage<Tag> tagRepository;
 
 	@GetMapping("")
-	public @ResponseBody ResponseEntity<Set<Tag>> getAllTags() {
+	public @ResponseBody ResponseEntity<Set<Tag>> getAllTags() throws FailedToReadAllException {
 		Set<Tag> allTagsSet = new HashSet<Tag>();
 		List<Tag> allTagsList = tagRepository.readAll();
 
@@ -38,9 +40,8 @@ public class TagController {
 			}
 			return new ResponseEntity<Set<Tag>>(allTagsSet, HttpStatus.OK);
 		} else {
-			return new ResponseEntity<Set<Tag>>(HttpStatus.INTERNAL_SERVER_ERROR);
+			throw new FailedToReadAllTagsException();
 		}
 	}
-	// @RequestMapping(value = "", method = Req)
 
 }

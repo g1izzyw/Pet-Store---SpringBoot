@@ -138,68 +138,68 @@ app.controller('petStoreController', ['$scope', '$http', 'ngToast',
 		};
 
 		 // SEARCH for pet
-//		 $scope.searchPetById = function() {
-//			 $http({
-//				 url : 'pet/' + $scope.searchPetId,
-//				 method : 'GET',
-//				 params : {}
-//			 }).then(function(response) {
-//				 $scope.selectedPet = response.data;
-//				 $scope.searchPetId = $scope.selectedPet.id;
-//			 }, function(response) {
-//				 if (response.status == 400) {
-//					 $scope.selectedPet = null;
-//					 ngToast.create({
-//						 content : "Something doesn't look right. Make sure your ID is correct.",
-//						 className : 'danger'
-//					 });
-//				 } else if (response.status == 404) {
-//					 $scope.selectedPet = null;
-//					 ngToast.create({
-//						 content : "The pet was not listed in the store.",
-//						 className : 'warning'
-//					 });
-//				 } else {
-//					 ngToast.create({
-//						 content : "Something doesn't look right. Contact support.",
-//						 className : 'danger'
-//					 });
-//				 }
-//			 });
-//		 };
+		 $scope.searchPetById = function() {
+			 $http({
+				 url : '/pet/' + $scope.searchPetId,
+				 method : 'GET',
+				 params : {}
+			 }).then(function(response) {
+				 $scope.selectedPet = response.data;
+				 $scope.searchPetId = $scope.selectedPet.id;
+			 }, function(response) {
+				 if (response.status == 400) {
+					 $scope.selectedPet = null;
+					 ngToast.create({
+						 content : "Something doesn't look right. Make sure your ID is correct.",
+						 className : 'danger'
+					 });
+				 } else if (response.status == 404) {
+					 $scope.selectedPet = null;
+					 ngToast.create({
+						 content : "The pet was not listed in the store.",
+						 className : 'warning'
+					 });
+				 } else {
+					 ngToast.create({
+						 content : "Something doesn't look right. Contact support.",
+						 className : 'danger'
+					 });
+				 }
+			 });
+		 };
 
 		// DELETE current pet
-//		 $scope.deleteCurrentPet = function() {
-//			 $http({
-//				 url : 'pet/' + $scope.selectedPet.id,
-//				 method : 'DELETE',
-//				 params : {}
-//			 }).then(function(response) {
-//				 $scope.selectedPet = null;
-//				 $scope.searchPetId = null;
-//				 ngToast.create({
-//					 content : "The pet was deleted from the store.",
-//					 className : 'success'
-//				 });
-//			 }, function(response) {
-//				 if (response.status == 400) {
-//					 ngToast.create({
-//						 content : "Something doesn't look right. Make sure your ID is correct.",
-//						 className : 'danger'
-//					 });
-//				 } else if (response.status == 404) {
-//					 ngToast.create({
-//						 content : "The pet was not in the store. Could not delete Pet.",
-//						 className : 'warning'
-//					 });
-//				 } else {
-//					 ngToast.create({
-//						 content : "Something doesn't look right. Contact support.",
-//						 className : 'danger'
-//					 });
-//				 }
-//			 });
-//		 };
+		 $scope.deleteCurrentPet = function() {
+			 $http({
+				 url : '/pet/' + $scope.selectedPet.id,
+				 method : 'DELETE',
+				 params : {}
+			 }).then(function(response) {
+				 $scope.selectedPet = null;
+				 $scope.searchPetId = null;
+				 ngToast.create({
+					 content : "The pet was deleted from the store.",
+					 className : 'success'
+				 });
+			 }, function(response) {
+				 if (response.status == 400) {
+					 ngToast.create({
+						 content : "Something doesn't look right. Make sure your ID is correct.",
+						 className : 'danger'
+					 });
+				 } else if (response.status == 404) {
+					 ngToast.create({
+						 content : "The pet was not in the store. Could not delete Pet.",
+						 className : 'warning'
+					 });
+				 } else {
+					 ngToast.create({
+						 content : "Something doesn't look right. Contact support.",
+						 className : 'danger'
+					 });
+				 }
+			 });
+		 };
 
 		$scope.formatTagsToString = function(optionsList) {
 			var returnValue = "";

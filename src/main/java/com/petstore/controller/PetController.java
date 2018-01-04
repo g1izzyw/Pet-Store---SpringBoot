@@ -29,55 +29,36 @@ public class PetController {
 	DataSource dataSource;
 
 	@Autowired
-	// PetRepository petRepository;
 	IStorage<Pet> petRepository;
 
-	// @RequestMapping(value = "/{petId}", method = RequestMethod.GET)
 	@GetMapping(value = "/{petId}")
 	public @ResponseBody ResponseEntity<Pet> getPetById(@PathVariable("petId") Long petId) throws PetNotFoundException, TypeMismatchException {
-		// Pet petWithId = petRepository.findOne(petId);
 		Pet petWithId = petRepository.read(petId);
 		if (petWithId != null) {
 			return new ResponseEntity<Pet>(petWithId, HttpStatus.OK);
 		} else {
 			throw new PetNotFoundException(petId);
-//			return new ResponseEntity<Pet>(HttpStatus.NOT_FOUND);
 		}
 	}
 
-	// @RequestMapping(value = "/{petId}", method = RequestMethod.DELETE)
 	@DeleteMapping(value = "/{petId}")
 	public ResponseEntity<Void> deletePetById(@PathVariable("petId") Long petId) throws PetNotFoundException, TypeMismatchException {
-		// boolean wasPetDeleted = petRepository.delete(petId);
 		if (petRepository.delete(petId)) {
 			return new ResponseEntity<Void>(HttpStatus.OK);
 		} else {
 			throw new PetNotFoundException(petId);
-//			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
 		}
 	}
 
-	// @RequestMapping(value = "", method = RequestMethod.POST)
 	@PostMapping(value = "")
 	public ResponseEntity<Void> addPetToStore(@RequestBody Pet petToCreate, UriComponentsBuilder ucBuilder) {
-		// petToCreate.setId(petIdCounter.incrementAndGet());
-
-		// Pet newPet = petRepository.save(petToCreate);
 		Pet newPet = petRepository.create(petToCreate);
 		if (newPet != null) {
-			// final URI location =
-			// ServletUriComponentsBuilder.fromCurrentServletMapping().path("/pet/{id}").build().expand(newPet.getId()).toUri();
-			// final HttpHeaders headers = new HttpHeaders();
-			// headers.setLocation(location);
-			// final ResponseEntity<Void> entity = new
-			// ResponseEntity<Void>(headers, HttpStatus.CREATED);
-
 			HttpHeaders headers = new HttpHeaders();
-			headers.setLocation(ucBuilder.path("/api/user/{id}").buildAndExpand(newPet.getId()).toUri());
+			headers.setLocation(ucBuilder.path("/pet/{id}").buildAndExpand(newPet.getId()).toUri());
 			return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
-
-			// return new ResponseEntity<Pet>(newPet, HttpStatus.OK);
 		} else {
+			//TODO put in gobal exceptions
 			return new ResponseEntity<Void>(HttpStatus.METHOD_NOT_ALLOWED);
 		}
 

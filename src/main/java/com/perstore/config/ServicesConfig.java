@@ -40,4 +40,9 @@ public class ServicesConfig {
 	public IStorage<Category> categoryJPAPersistenceService() {
 		return new CategoryDAOService();
 	}
+	
+//	@Bean
+//	public Jackson2ObjectMapperBuilder configureObjectMapper() {
+//	    return new Jackson2ObjectMapperBuilder().modulesToInstall(Hibernate4Module.class);
+//	}
 }
