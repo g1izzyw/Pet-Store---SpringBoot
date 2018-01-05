@@ -27,7 +27,6 @@ public class CategoryController {
 	DataSource dataSource;
 
 	@Autowired
-//	@Qualifier("SomethingImpl")
 	IStorage<Category> categoryRepository;
 
 	@GetMapping("")

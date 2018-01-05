@@ -8,8 +8,4 @@ public abstract class FailedToReadAllException extends Exception {
 		super(msg);
 	}
 	
-	public String getType() {
-		return null;
-	}
-	
 }

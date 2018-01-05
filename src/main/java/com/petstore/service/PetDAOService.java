@@ -92,7 +92,7 @@ public class PetDAOService implements IStorage<Pet> {
 				for (Tag tag : pet.getTags()) {
 					tag.getPets().remove(pet);
 				}
-				log.trace(String.format("Remove pet with id: %d", id));;
+				log.trace(String.format("Removed pet with id: %d", id));
 				return true;
 			} catch (IllegalArgumentException e) {
 				e.printStackTrace();

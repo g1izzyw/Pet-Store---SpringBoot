@@ -8,9 +8,4 @@ public class FailedToReadAllTagsException extends FailedToReadAllException {
 		super("Failed to retrieve list of tags");
 	}
 	
-	@Override
-	public String getType(){
-		return "Tag";
-	}
-	
 }

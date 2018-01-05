@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.petstore.entity.Pet;
+import com.petstore.exceptions.InsufficientPetInformationException;
 import com.petstore.exceptions.PetNotFoundException;
 import com.petstore.interfaces.IStorage;
 
@@ -51,15 +52,14 @@ public class PetController {
 	}
 
 	@PostMapping(value = "")
-	public ResponseEntity<Void> addPetToStore(@RequestBody Pet petToCreate, UriComponentsBuilder ucBuilder) {
+	public ResponseEntity<Void> addPetToStore(@RequestBody Pet petToCreate, UriComponentsBuilder ucBuilder) throws InsufficientPetInformationException {
 		Pet newPet = petRepository.create(petToCreate);
 		if (newPet != null) {
 			HttpHeaders headers = new HttpHeaders();
 			headers.setLocation(ucBuilder.path("/pet/{id}").buildAndExpand(newPet.getId()).toUri());
 			return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
 		} else {
-			//TODO put in gobal exceptions
-			return new ResponseEntity<Void>(HttpStatus.METHOD_NOT_ALLOWED);
+			throw new InsufficientPetInformationException();
 		}
 
 	}

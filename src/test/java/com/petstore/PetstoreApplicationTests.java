@@ -1,31 +1,28 @@
 package com.petstore;
 
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.junit.Assert.assertFalse;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
+import com.petstore.controller.PetController;
+
+import junit.framework.Assert;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-@AutoConfigureMockMvc
+//@AutoConfigureMockMvc
 public class PetstoreApplicationTests {
 	
 	@Autowired
-    private MockMvc mvc;
+    private PetController controller;
 
 	@Test
-	public void deletePet() throws Exception {
-		 mvc.perform(MockMvcRequestBuilders.post("/pet").accept(MediaType.APPLICATION_JSON))
-		 .andExpect(status().isOk());
-	}
+    public void contextLoads() throws Exception {
+		assertThat(controller).isNotNull();
+    }
 }

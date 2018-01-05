@@ -24,12 +24,6 @@ public class ServicesConfig {
 	}
 
 	@Bean
-	@ConditionalOnProperty(name = "storage.type", havingValue = "database", matchIfMissing = false)
-	public IStorage<Pet> petJSONPersistenceService() {
-		return null;
-	}
-
-	@Bean
 	@ConditionalOnProperty(name = "storage.type", havingValue = "memory", matchIfMissing = true)
 	public IStorage<Tag> tagJPAPersistenceService() {
 		return new TagDAOService();
@@ -41,8 +35,4 @@ public class ServicesConfig {
 		return new CategoryDAOService();
 	}
 	
-//	@Bean
-//	public Jackson2ObjectMapperBuilder configureObjectMapper() {
-//	    return new Jackson2ObjectMapperBuilder().modulesToInstall(Hibernate4Module.class);
-//	}
 }
