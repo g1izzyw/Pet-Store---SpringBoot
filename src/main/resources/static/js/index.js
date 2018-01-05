@@ -8,7 +8,7 @@ app.controller('petStoreController', ['$scope', '$http', 'ngToast',
 			"name" : null,
 			"category" : null,
 			"tags" : null,
-			"pictures" : null,
+			"pictureLinks" : null,
 			"status" : null
 		}
 
@@ -84,16 +84,16 @@ app.controller('petStoreController', ['$scope', '$http', 'ngToast',
 				return;
 			}
 
-			var listOfPhotos = $scope.petToAdd.pictures.split(',');
-			var picToAdd = [];
-			for (var i = 0; i < listOfPhotos.length; i++) {
-				var picture = {
-					"id": null,
-					"link": listOfPhotos[i]
-				}
-				picToAdd.push(picture);
-			}
-			$scope.petToAdd.pictures = picToAdd;
+//			var listOfPhotos = $scope.petToAdd.pictures.split(',');
+//			var picToAdd = [];
+//			for (var i = 0; i < listOfPhotos.length; i++) {
+//				var picture = {
+//					"id": null,
+//					"link": listOfPhotos[i]
+//				}
+//				picToAdd.push(picture);
+//			}
+//			$scope.petToAdd.pictures = picToAdd;
 
 			$http({
 				url : '/pet',
@@ -110,7 +110,7 @@ app.controller('petStoreController', ['$scope', '$http', 'ngToast',
 				$scope.petToAdd.name = null;
 				$scope.petToAdd.category = null;
 				$scope.petToAdd.tags = null;
-				$scope.petToAdd.pictures = null;
+				$scope.petToAdd.pictureLinks = null;
 				$scope.petToAdd.status = null;
 
 				$('#addPetModal').modal('hide');

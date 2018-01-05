@@ -89,10 +89,9 @@
 									<td>
 										<div class="col-md-4 txtright">Pictures:</div>
 										<div class="col-md-8">
-											<div ng-repeat="petImg in selectedPet.pictures">
-												<img ng-src="{{ petImg }}"
-													onError="this.src='/img/no-img.jpg'">
-											</div>
+											<pre ng-repeat="petImg in selectedPet.pictureLinks">
+												<img ng-src="{{ petImg }}" onError="this.src='/img/no-img.jpg'">
+											</pre>
 										</div>
 									</td>
 								</tr>
@@ -183,8 +182,9 @@
 											<td>
 												<div class="col-md-4 txtright">Photo URLs</div>
 												<div class="col-md-8">
-													<input type="text" ng-model="petToAdd.pictures" 
-														name="addPetPhotoUrls" required>
+													<input type="text" ng-model="petToAdd.pictureLinks" 
+														name="addPetPhotoUrls" ng-list required>
+													<pre>{{petToAdd.pictureLinks}}</pre>
 												</div>
 											</td>
 										</tr>

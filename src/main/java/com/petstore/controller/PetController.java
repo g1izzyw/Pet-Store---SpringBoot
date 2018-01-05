@@ -36,6 +36,7 @@ public class PetController {
 	public @ResponseBody ResponseEntity<Pet> getPetById(@PathVariable("petId") Long petId) throws PetNotFoundException, TypeMismatchException {
 		Pet petWithId = petRepository.read(petId);
 		if (petWithId != null) {
+			petWithId.convertPicturesToLinks();
 			return new ResponseEntity<Pet>(petWithId, HttpStatus.OK);
 		} else {
 			throw new PetNotFoundException(petId);
@@ -53,6 +54,11 @@ public class PetController {
 
 	@PostMapping(value = "")
 	public ResponseEntity<Void> addPetToStore(@RequestBody Pet petToCreate, UriComponentsBuilder ucBuilder) throws InsufficientPetInformationException {
+		if (petToCreate.getName() == null || petToCreate.getPictureLinks() == null || petToCreate.getPictureLinks().size() == 0) {
+			throw new InsufficientPetInformationException();
+		}
+		
+		petToCreate.convertLinksToPictures();
 		Pet newPet = petRepository.create(petToCreate);
 		if (newPet != null) {
 			HttpHeaders headers = new HttpHeaders();

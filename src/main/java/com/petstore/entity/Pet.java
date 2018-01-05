@@ -1,6 +1,9 @@
 package com.petstore.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -20,7 +23,9 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.petstore.enums.Status;
 import com.petstore.interfaces.IStorable;
@@ -49,7 +54,11 @@ public class Pet implements IStorable, Serializable {
 	
 	@OneToMany(cascade={CascadeType.ALL},mappedBy="pet")
 	@JsonManagedReference("pet-picture")
+	@JsonIgnore
 	private Set<PetPicture> pictures;
+
+	@Transient
+	private List<String> pictureLinks;
 
 	@ManyToMany
 	@JoinTable(
@@ -145,5 +154,29 @@ public class Pet implements IStorable, Serializable {
 	public void setPictures(Set<PetPicture> pictures) {
 		this.pictures = pictures;
 	}
+	
+	public List<String> getPictureLinks() {
+		return pictureLinks;
+	}
 
+	public void setPictureLinks(List<String> pictureLinks) {
+		this.pictureLinks = pictureLinks;
+	}
+	
+	public void convertLinksToPictures() {
+		pictures = new HashSet<PetPicture>();
+		for (String link : pictureLinks) {
+			PetPicture pic = new PetPicture();
+			pic.setLink(link);
+			pictures.add(pic);
+		}
+	}
+
+	public void convertPicturesToLinks() {
+		pictureLinks = new ArrayList<String>();
+		for (PetPicture pic : pictures) {
+			pictureLinks.add(pic.getLink());
+		}
+	}
+	
 }
