@@ -2,7 +2,6 @@ var app = angular.module('petStoreApp', [ 'ngMessages', 'ngToast' ]);
 
 app.controller('petStoreController', ['$scope', '$http', 'ngToast',
 	function($scope, $http, ngToast) {
-		
 		$scope.petToAdd = {
 			"id" : null,
 			"name" : null,
@@ -14,17 +13,15 @@ app.controller('petStoreController', ['$scope', '$http', 'ngToast',
 
 		$scope.searchPetId = null;
 		$scope.selectedPet = null;
-	
-		
 		
 		$scope.loadCategory = function() {
 			$http({
 				url : '/category',
 				method : 'GET',
+				cache: true,
 				params : {}
 			}).then(function(response) {
 				$scope.categoryOptions = response.data;
-				// check what this does
 				$scope.petToAdd.category = $scope.categoryOptions[0];
 			}, function(response) {
 				if (response.status == 500) {
@@ -45,6 +42,7 @@ app.controller('petStoreController', ['$scope', '$http', 'ngToast',
 			$http({
 				url : '/tag',
 				method : 'GET',
+				cache: true,
 				params : {}
 			}).then(function(response) {
 				$scope.tagOptions = response.data;
@@ -83,17 +81,6 @@ app.controller('petStoreController', ['$scope', '$http', 'ngToast',
 				});
 				return;
 			}
-
-//			var listOfPhotos = $scope.petToAdd.pictures.split(',');
-//			var picToAdd = [];
-//			for (var i = 0; i < listOfPhotos.length; i++) {
-//				var picture = {
-//					"id": null,
-//					"link": listOfPhotos[i]
-//				}
-//				picToAdd.push(picture);
-//			}
-//			$scope.petToAdd.pictures = picToAdd;
 
 			$http({
 				url : '/pet',
@@ -201,22 +188,5 @@ app.controller('petStoreController', ['$scope', '$http', 'ngToast',
 			 });
 		 };
 
-		$scope.formatTagsToString = function(optionsList) {
-			var returnValue = "";
-			if (!optionsList) {
-				return returnValue;
-			}
-	
-			for (var i = 0; i < optionsList.length; i++) {
-				returnValue += optionsList[i].name + ", "
-			}
-	
-			if (returnValue.length > 0) {
-				returnValue = returnValue.substring(0,
-						returnValue.length - 2);
-			}
-	
-			return returnValue;
-		};
 	}
 ]);

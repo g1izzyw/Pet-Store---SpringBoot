@@ -7,5 +7,4 @@ public class FailedToReadAllTagsException extends FailedToReadAllException {
 	public FailedToReadAllTagsException() {
 		super("Failed to retrieve list of tags");
 	}
-	
 }

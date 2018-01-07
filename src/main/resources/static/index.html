@@ -12,8 +12,7 @@
 <script type="text/javascript" src="js/bootstrap.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
 
-<link rel="stylesheet" type="text/css"
-	href="css/bootstrap-theme.min.css">
+<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css">
 <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="css/index.css">
 <link rel="stylesheet" href="ngtoast/dist/ngToast.css">
@@ -51,8 +50,9 @@
 					<button type="button" class="btn btn-default" id="search-pet-btn"
 						ng-click="searchPetById()">Search Pet</button>
 					<button type="button" class="btn btn-default" id="delete-pet-btn"
-						ng-click="deleteCurrentPet()" ng-disabled="selectedPet == null">Delete
-						Pet From Store</button>
+						ng-click="deleteCurrentPet()" ng-disabled="selectedPet == null">
+							Delete Pet From Store
+					</button>
 					<button type="button" class="btn btn-default" id="add-pet-btn"
 						data-toggle="modal" data-target="#addPetModal">Add Pet</button>
 				</fieldset>
@@ -89,9 +89,9 @@
 									<td>
 										<div class="col-md-4 txtright">Pictures:</div>
 										<div class="col-md-8">
-											<pre ng-repeat="petImg in selectedPet.pictureLinks">
+											<div ng-repeat="petImg in selectedPet.pictureLinks">
 												<img ng-src="{{ petImg }}" onError="this.src='/img/no-img.jpg'">
-											</pre>
+											</div>
 										</div>
 									</td>
 								</tr>
@@ -184,7 +184,9 @@
 												<div class="col-md-8">
 													<input type="text" ng-model="petToAdd.pictureLinks" 
 														name="addPetPhotoUrls" ng-list required>
+													<br>
 													<pre>{{petToAdd.pictureLinks}}</pre>
+													</div>
 												</div>
 											</td>
 										</tr>

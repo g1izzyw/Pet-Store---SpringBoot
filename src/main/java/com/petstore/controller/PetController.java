@@ -67,6 +67,5 @@ public class PetController {
 		} else {
 			throw new InsufficientPetInformationException();
 		}
-
 	}
 }

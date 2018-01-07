@@ -7,5 +7,4 @@ public abstract class FailedToReadAllException extends Exception {
 	public FailedToReadAllException(String msg) {
 		super(msg);
 	}
-	
 }

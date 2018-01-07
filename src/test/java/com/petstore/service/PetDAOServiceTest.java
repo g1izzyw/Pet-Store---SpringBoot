@@ -104,7 +104,6 @@ public class PetDAOServiceTest {
 		for (PetPicture pic : pet.getPictures()) {
 			entityManager.persist(pic);
 		}
-		
 		entityManager.flush();
 		
 		if (pet.getCategory() != null) {
@@ -112,16 +111,13 @@ public class PetDAOServiceTest {
 			entityManager.persist(pet.getCategory());
 		}
 		
-		
 		for (Tag tag : pet.getTags()) {
 			Set<Pet> petsForTag = new HashSet<Pet>();
 			petsForTag.add(pet);
 			tag.setPets(petsForTag);
 			entityManager.persist(tag);
 		}
-			
 		entityManager.flush();
-		
 	}
 	
 	private void removePetFromEM(Pet pet) {
